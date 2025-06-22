@@ -1,0 +1,10 @@
+# Este diretório armazena os vídeos do site
+# Coloque aqui os arquivos:
+# - hero-video.mp4
+# - services-video.mp4
+# - portfolio-1.mp4 a portfolio-7.mp4
+# - portfolio-1-poster.jpg a portfolio-7-poster.jpg
+#
+# Nota: Se os vídeos não forem adicionados, o site mostrará imagens estáticas como fallback.
+# As imagens são carregadas automaticamente da Unsplash, então não é necessário adicionar
+# arquivos de imagem manualmente. 
