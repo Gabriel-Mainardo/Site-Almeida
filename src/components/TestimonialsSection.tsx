@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { SectionContainer, SectionTitle } from './ui/section-container';
+import { useAppContext } from '@/lib/AppContext';
 
 const testimonials = [
   {
@@ -38,6 +39,7 @@ const testimonials = [
 ];
 
 const TestimonialsSection = () => {
+  const { isMobile } = useAppContext();
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
 
@@ -69,45 +71,39 @@ const TestimonialsSection = () => {
     <SectionContainer id="testimonials" className="bg-navy">
       <SectionTitle 
         title="Depoimentos" 
-        subtitle="Veja o que nossos clientes dizem sobre a atuação do Almeida como Mestre de Cerimônias"
+        subtitle="Experiências de clientes com o trabalho do Almeida"
       />
 
       <div className="max-w-4xl mx-auto">
         <div className="relative px-4 sm:px-6 md:px-10 py-8 md:py-10 glass-card rounded-xl luxury-shadow">
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-gold text-navy rounded-full px-4 sm:px-6 py-2 sm:py-3 font-bold text-sm sm:text-base text-center w-auto min-w-[180px]">
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-gold text-navy rounded-full px-3 py-1.5 sm:px-6 sm:py-3 font-bold text-xs sm:text-base text-center w-auto min-w-[140px] sm:min-w-[180px]">
             Clientes Satisfeitos
           </div>
           
           <div className={`transition-opacity duration-300 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}>
-            <div className="flex flex-col items-center mb-4 sm:mb-6 text-center">
-              <div>
-                <h3 className="font-bold text-base sm:text-lg text-gold">{testimonials[currentTestimonial].name}</h3>
-                <p className="text-gray-300 text-sm sm:text-base">{testimonials[currentTestimonial].role}</p>
-                <div className="flex items-center mt-1 justify-center">
-                  {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                    <Star key={i} size={14} className="text-gold fill-gold" />
-                  ))}
-                </div>
-              </div>
+            <div className="flex flex-col items-center mb-4 sm:mb-5 text-center">
+              <h3 className="font-playfair font-medium text-base sm:text-lg text-gold mb-3">
+                {testimonials[currentTestimonial].name}
+              </h3>
             </div>
             
-            <p className="text-gray-200 text-sm sm:text-base md:text-lg italic text-center">
+            <p className="text-gray-200 text-sm sm:text-base md:text-lg italic text-center leading-relaxed">
               "{testimonials[currentTestimonial].testimonial}"
             </p>
           </div>
           
-          <div className="flex justify-between mt-6 sm:mt-8">
+          <div className="flex justify-between items-center mt-6 sm:mt-8">
             <button 
               onClick={prevTestimonial}
-              className="p-1.5 sm:p-2 rounded-full border border-gold/30 hover:bg-gold/20 transition"
+              className="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full border border-gold/30 hover:bg-gold/20 transition"
               aria-label="Depoimento anterior"
             >
-              <ChevronLeft size={16} className="text-gold" />
+              <ChevronLeft size={isMobile ? 12 : 16} className="text-gold" />
             </button>
             
-            <div className="flex space-x-2">
+            <div className="flex items-center space-x-1 sm:space-x-2">
               {testimonials.map((_, index) => (
-                <button 
+                <div 
                   key={index}
                   onClick={() => {
                     setFadeOut(true);
@@ -116,7 +112,7 @@ const TestimonialsSection = () => {
                       setFadeOut(false);
                     }, 300);
                   }}
-                  className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full ${
+                  className={`w-1 h-1 sm:w-2.5 sm:h-2.5 rounded-full cursor-pointer ${
                     currentTestimonial === index ? 'bg-gold' : 'bg-gray-600'
                   }`}
                   aria-label={`Ir para depoimento ${index + 1}`}
@@ -126,10 +122,10 @@ const TestimonialsSection = () => {
             
             <button 
               onClick={nextTestimonial}
-              className="p-1.5 sm:p-2 rounded-full border border-gold/30 hover:bg-gold/20 transition"
+              className="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full border border-gold/30 hover:bg-gold/20 transition"
               aria-label="Próximo depoimento"
             >
-              <ChevronRight size={16} className="text-gold" />
+              <ChevronRight size={isMobile ? 12 : 16} className="text-gold" />
             </button>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Instagram, AlertCircle, Volume2, VolumeX, Play, Calendar, Users } from 'lucide-react';
+import { Instagram, AlertCircle, Play, Calendar, Users } from 'lucide-react';
 import { SectionContainer, SectionTitle } from './ui/section-container';
 import { useAppContext } from '@/lib/AppContext';
 
@@ -53,7 +53,6 @@ const PortfolioSection = () => {
   const [filter, setFilter] = useState('todos');
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
   const [videoErrors, setVideoErrors] = useState<{[key: number]: boolean}>({});
-  const [isMuted, setIsMuted] = useState<boolean>(true);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [thumbnailsLoaded, setThumbnailsLoaded] = useState<{[key: number]: boolean}>({});
   const videoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({});
@@ -99,23 +98,6 @@ const PortfolioSection = () => {
     }
   };
 
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
-    
-    // Aplicar ao vídeo do modal, se estiver aberto
-    if (modalVideoRef.current) {
-      modalVideoRef.current.muted = !isMuted;
-    }
-    
-    // Aplicar a todos os vídeos nos cards
-    Object.keys(videoRefs.current).forEach((key) => {
-      const videoRef = videoRefs.current[parseInt(key)];
-      if (videoRef) {
-        videoRef.muted = !isMuted;
-      }
-    });
-  };
-
   const handleItemClick = (id: number, e: React.MouseEvent) => {
     e.preventDefault();
     setSelectedItem(id);
@@ -139,7 +121,7 @@ const PortfolioSection = () => {
       <div className="flex flex-wrap justify-center gap-2 mt-4 md:mt-6 mb-6">
         <button 
           onClick={() => setFilter('todos')}
-          className={`px-3 py-1.5 md:px-4 md:py-2 rounded-full transition text-sm md:text-base ${
+          className={`px-4 py-2 md:px-4 md:py-2 rounded-full transition text-base ${
             filter === 'todos' 
               ? 'bg-gold text-plum-dark font-medium' 
               : 'bg-plum border border-gold/30 text-gold hover:bg-plum-light/50'
@@ -149,7 +131,7 @@ const PortfolioSection = () => {
         </button>
         <button 
           onClick={() => setFilter('corporativo')}
-          className={`px-3 py-1.5 md:px-4 md:py-2 rounded-full transition text-sm md:text-base ${
+          className={`px-4 py-2 md:px-4 md:py-2 rounded-full transition text-base ${
             filter === 'corporativo' 
               ? 'bg-gold text-plum-dark font-medium' 
               : 'bg-plum border border-gold/30 text-gold hover:bg-plum-light/50'
@@ -159,7 +141,7 @@ const PortfolioSection = () => {
         </button>
         <button 
           onClick={() => setFilter('institucional')}
-          className={`px-3 py-1.5 md:px-4 md:py-2 rounded-full transition text-sm md:text-base ${
+          className={`px-4 py-2 md:px-4 md:py-2 rounded-full transition text-base ${
             filter === 'institucional' 
               ? 'bg-gold text-plum-dark font-medium' 
               : 'bg-plum border border-gold/30 text-gold hover:bg-plum-light/50'
@@ -169,13 +151,11 @@ const PortfolioSection = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 opacity-100">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 opacity-100">
         {filteredItems.map((item) => (
           <div 
             key={item.id} 
-            className="portfolio-card group relative rounded-lg overflow-hidden bg-plum border border-gold/20 shadow-lg transition-all duration-300 hover:shadow-xl hover:border-gold/40 hover:transform hover:scale-[1.02]"
-            onMouseEnter={() => setHoveredCard(item.id)}
-            onMouseLeave={() => setHoveredCard(null)}
+            className="portfolio-card group relative rounded-lg overflow-hidden bg-navy border border-gold/20 shadow-lg transition-all duration-300 hover:shadow-xl hover:border-gold/40"
           >
             {/* Vídeo congelado como thumbnail */}
             <div className="relative aspect-video w-full overflow-hidden">
@@ -238,7 +218,7 @@ const PortfolioSection = () => {
               
               <button 
                 onClick={(e) => handleItemClick(item.id, e)}
-                className="w-full text-plum bg-gold hover:bg-gold-light py-2 px-4 rounded-md text-sm font-medium transition-colors flex items-center justify-center"
+                className="w-full text-plum bg-gold hover:bg-gold-light py-2.5 px-4 rounded-md text-base font-medium transition-colors flex items-center justify-center"
                 aria-label={`Ver vídeo: ${item.title}`}
               >
                 <Play size={16} className="mr-2" />
@@ -254,7 +234,7 @@ const PortfolioSection = () => {
           href="https://www.instagram.com/almeida.lh/" 
           target="_blank" 
           rel="noopener noreferrer" 
-          className="flex items-center px-4 py-2 md:px-6 md:py-3 bg-gold text-plum rounded-full hover:bg-gold-light transition-colors text-sm md:text-base"
+          className="flex items-center px-6 py-3 md:px-6 md:py-3 bg-gold text-plum rounded-full hover:bg-gold-light transition-colors text-base"
         >
           <Instagram className="mr-2" size={18} />
           Ver mais no Instagram
@@ -281,12 +261,11 @@ const PortfolioSection = () => {
                       src={portfolioItems.find(item => item.id === selectedItem)?.videoUrl}
                       autoPlay
                       controls
-                      muted={isMuted}
                       loop
                       playsInline
                       onError={() => selectedItem && handleVideoError(selectedItem)}
-                      className="responsive-video"
-                      style={{ maxHeight: '80vh', maxWidth: '100%', margin: '0 auto' }}
+                      className="responsive-video w-full h-auto"
+                      style={{ maxHeight: isMobile ? '60vh' : '80vh', width: '100%' }}
                       onLoadedMetadata={() => {
                         if (modalVideoRef.current) {
                           modalVideoRef.current.play().catch(err => {
@@ -296,17 +275,6 @@ const PortfolioSection = () => {
                       }}
                     />
                   </div>
-                  <button 
-                    onClick={toggleMute}
-                    className="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 z-30 bg-plum-dark/70 hover:bg-plum-dark/90 p-1.5 sm:p-2 md:p-2.5 rounded-full transition-all duration-300 border border-gold/30 focus:outline-none focus:ring-2 focus:ring-gold/50"
-                    aria-label={isMuted ? "Ativar som" : "Desativar som"}
-                  >
-                    {isMuted ? (
-                      <VolumeX size={14} className="text-gold" />
-                    ) : (
-                      <Volume2 size={14} className="text-gold" />
-                    )}
-                  </button>
                 </>
               )}
               <button 
@@ -316,9 +284,9 @@ const PortfolioSection = () => {
                     modalVideoRef.current.pause();
                   }
                 }}
-                className="absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 bg-plum-dark/70 rounded-full p-1.5 sm:p-2 shadow-lg text-gold border border-gold/30 hover:bg-gold hover:text-plum transition-colors z-50"
+                className="absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 bg-plum-dark/70 rounded-full shadow-lg text-gold border border-gold/30 hover:bg-gold hover:text-plum transition-colors z-50 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width={isMobile ? 16 : 18} height={isMobile ? 16 : 18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
               </button>
             </div>
           </div>

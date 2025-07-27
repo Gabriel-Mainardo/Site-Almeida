@@ -194,18 +194,17 @@ const ImageCarousel = () => {
 
   return (
     <div className="relative">
-      <div className="overflow-hidden rounded-lg" ref={emblaRef}>
+      <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {carouselImages.map((src, index) => (
-            <div className="flex-[0_0_90%] md:flex-[0_0_80%] lg:flex-[0_0_70%] min-w-0 px-2 md:px-4 relative" key={index}>
-              <div className="relative overflow-hidden rounded-lg shadow-lg border border-gold/20">
+            <div className="flex-[0_0_90%] sm:flex-[0_0_85%] md:flex-[0_0_70%] lg:flex-[0_0_60%] min-w-0 px-1.5 sm:px-2.5 md:px-4 relative" key={index}>
+              <div className="aspect-[4/3] md:aspect-[16/9] relative overflow-hidden rounded-md shadow-md bg-plum-dark">
                 <img
                   src={src}
                   alt={`Evento ${index + 1}`}
-                  className="w-full h-auto object-contain"
-                  style={{ maxHeight: '70vh' }}
+                  className="absolute inset-0 w-full h-full embla-carousel-image"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-navy-dark/30 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-navy-dark/40"></div>
               </div>
             </div>
           ))}
@@ -291,17 +290,13 @@ const ServicesSection = () => {
                 {/* Botão de som - tamanho reduzido no desktop */}
                 <button 
                   onClick={toggleMute}
-                  className={`absolute bottom-2 right-2 z-30 bg-navy-dark/80 hover:bg-navy-dark/90 transition-all duration-300 border border-gold/30 focus:outline-none focus:ring-2 focus:ring-gold/50 ${
-                    isMobile 
-                      ? 'p-1.5 sm:p-2 rounded-full' 
-                      : 'p-1.5 md:p-1.5 rounded-full md:scale-75'
-                  }`}
+                  className="absolute bottom-2 right-2 z-30 bg-navy-dark/80 hover:bg-navy-dark/90 transition-all duration-300 border border-gold/30 focus:outline-none focus:ring-2 focus:ring-gold/50 flex items-center justify-center w-8 h-8 sm:w-8 sm:h-8 rounded-full"
                   aria-label={isMuted ? "Ativar som" : "Desativar som"}
                 >
                   {isMuted ? (
-                    <VolumeX size={isMobile ? 14 : 12} className="text-gold" />
+                    <VolumeX size={isMobile ? 14 : 16} className="text-gold" />
                   ) : (
-                    <Volume2 size={isMobile ? 14 : 12} className="text-gold" />
+                    <Volume2 size={isMobile ? 14 : 16} className="text-gold" />
                   )}
                 </button>
               </>
@@ -336,14 +331,14 @@ const ServicesSection = () => {
 
       {/* Carrossel de imagens */}
       <div className="mt-12 mb-4">
-        <div className="text-center mb-6">
-          <h3 className="text-xl sm:text-2xl font-bold text-gold mb-2">Galeria de Eventos</h3>
+        <div className="text-center mb-8">
+          <h3 className="text-xl sm:text-2xl font-bold text-gold mb-3">Galeria de Eventos</h3>
           <p className="text-sm sm:text-base text-gray-300 max-w-2xl mx-auto">
             Momentos especiais conduzidos com excelência e profissionalismo
           </p>
         </div>
         
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-2 sm:px-4">
           <ImageCarousel />
         </div>
       </div>

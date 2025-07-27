@@ -4,6 +4,103 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Regras para garantir que o site se ajuste corretamente em dispositivos móveis */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Usar a variável --vh para altura correta em dispositivos móveis */
+.min-h-screen {
+  min-height: 100vh; /* Fallback */
+  min-height: calc(var(--vh, 1vh) * 100);
+}
+
+.h-screen {
+  height: 100vh; /* Fallback */
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+/* Garantir que vídeos e imagens não quebrem o layout */
+video, img {
+  max-width: 100%;
+}
+
+/* Melhorar a experiência de toque em dispositivos móveis */
+@media (max-width: 767px) {
+  * {
+    touch-action: manipulation;
+  }
+  
+  /* Evitar problemas com elementos fixos em iOS */
+  .fixed {
+    position: fixed !important;
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+  
+  /* Garantir que containers não ultrapassem a largura da tela */
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* Estilos específicos para os controles de depoimentos */
+  #testimonials .flex button {
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
+  }
+  
+  #testimonials .flex button svg {
+    width: 12px !important;
+    height: 12px !important;
+  }
+  
+  #testimonials .flex div[aria-label^="Ir para depoimento"] {
+    width: 4px !important;
+    height: 4px !important;
+  }
+  
+  /* Estilos específicos para o botão de fechar no modal de vídeo */
+  .fixed button:has(svg.lucide-x) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  .fixed button svg.lucide-x {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+  
+  /* Garantir que os cards na seção About tenham o mesmo tamanho */
+  #about .grid-cols-1 > div {
+    height: 160px !important;
+    min-height: 160px !important;
+    max-height: 160px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+}
+
 @layer base {
   :root {
     --background: 282 24% 17%; /* Plum background */
@@ -211,47 +308,47 @@
 
 /* Responsividade avançada */
 @media (max-width: 640px) {
-  /* Ajustes para mobile */
+  /* Ajustes para mobile - Botões com tamanho similar ao desktop */
   .btn-secondary, .btn-outline, .btn-primary {
-    @apply px-4 py-2 text-sm w-full mb-3;
+    @apply px-6 py-3 text-base w-auto mb-2;
   }
   
   .poetic-headline {
-    font-size: 2rem;
-    line-height: 1.2;
+    font-size: 2.5rem;
+    line-height: 1.3;
   }
   
   .section-title {
-    @apply text-2xl mb-4;
+    @apply text-3xl mb-4;
   }
   
   .section-subtitle {
-    @apply text-base mb-6 px-2;
+    @apply text-base mb-8 px-2;
   }
   
   /* Ajustes para o modal de portfólio */
   .glass-card {
-    @apply max-w-[95%] mx-auto px-3 py-4;
+    @apply max-w-[95%] mx-auto px-4 py-5;
   }
   
   /* Melhorar espaçamento de texto em mobile */
   p {
-    @apply mb-4;
+    @apply mb-3;
   }
   
   /* Ajustar tamanho de fonte em geral */
   .text-adjust {
-    @apply text-sm;
+    @apply text-base;
   }
   
   /* Melhorar espaçamento vertical em seções */
   section {
-    @apply py-8;
+    @apply py-10;
   }
   
   /* Ajustar container para dar mais espaço útil */
   .container {
-    @apply px-3;
+    @apply px-4;
   }
   
   /* Melhorar visualização de inputs em formulários */
@@ -262,7 +359,28 @@
   
   /* Ajustar espaçamento em cards */
   .card, .glass-card {
+    @apply mb-4;
+  }
+  
+  /* Melhorar áreas de toque para interação em dispositivos móveis */
+  button, a {
+    touch-action: manipulation;
+  }
+  
+  /* Ajustar tamanho mínimo para áreas de toque */
+  .touch-target, button, a.btn-primary, a.btn-secondary, a.btn-outline {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  /* Evitar sobreposições de elementos em telas pequenas */
+  .portfolio-card {
     @apply mb-5;
+  }
+  
+  /* Melhorar visualização de imagens em mobile */
+  img {
+    @apply max-w-full;
   }
 }
 
@@ -392,6 +510,21 @@
   @apply space-x-2 md:space-x-4;
 }
 
+/* Classe utilitária para melhorar a visualização em dispositivos móveis */
+.mobile-friendly {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Classe para garantir tamanho mínimo para áreas de toque */
+.touch-area {
+  min-height: 44px;
+  min-width: 44px;
+}
+
 /* Estilos específicos para dispositivos touch */
 @media (hover: none) {
   .portfolio-card.touch-device .card-content {
@@ -433,5 +566,61 @@
     height: 100%;
     background-color: #0c1525;
   }
+}
+
+/* Ajustes para melhor enquadramento das imagens na galeria */
+.embla-carousel-image {
+  object-fit: contain;
+  background-color: #1e1624;
+  transition: transform 0.3s ease;
+}
+
+.embla-carousel-image:hover {
+  transform: scale(1.02);
+}
+
+@media (min-width: 768px) {
+  .embla-carousel-image {
+    object-fit: cover;
+    object-position: center 30%; /* Ajuste para focar mais nos rostos */
+  }
+}
+
+/* Ajustes específicos para cada imagem da galeria */
+img[src*="DboIvRr.jpeg"],
+img[src*="sUqaOYr.jpeg"],
+img[src*="aVMxD0Z.jpeg"],
+img[src*="1hYlQdC.jpeg"],
+img[src*="aMui7g2.jpeg"] {
+  object-position: center 25%;
+}
+
+img[src*="R36Y29w.jpeg"],
+img[src*="1ERC5oZ.jpeg"],
+img[src*="acLLhPx.jpeg"],
+img[src*="It6EDrq.jpeg"] {
+  object-position: center 20%;
+}
+
+img[src*="oAczFjE.jpeg"],
+img[src*="5bqOeIv.jpeg"],
+img[src*="0tsMKD1.jpeg"],
+img[src*="Q3pHbIp.jpeg"] {
+  object-position: center 35%;
+}
+
+img[src*="9277f0e.jpeg"],
+img[src*="l3gjSYk.jpeg"],
+img[src*="bSrBMBG.jpeg"],
+img[src*="soJJkOb.jpeg"] {
+  object-position: center 30%;
+}
+
+img[src*="qaRAz05.jpeg"],
+img[src*="WNtlxh3.jpeg"],
+img[src*="XIb3YnQ.jpeg"],
+img[src*="HQOxAJY.jpeg"],
+img[src*="ykYAQzC.jpeg"] {
+  object-position: center 40%;
 }
 

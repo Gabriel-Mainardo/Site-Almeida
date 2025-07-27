@@ -31,11 +31,11 @@ export function ButtonCustom({
     text: "text-gold hover:bg-navy-light/50",
   };
 
-  // Tamanhos
+  // Tamanhos - ajustados para serem consistentes em mobile e desktop
   const sizeStyles = {
-    sm: "px-3 py-1.5 text-xs sm:text-sm",
-    md: "px-6 py-3 text-sm sm:text-base",
-    lg: "px-8 py-4 text-base sm:text-lg",
+    sm: "px-4 py-2 text-sm",
+    md: "px-6 py-3 text-base",
+    lg: "px-8 py-4 text-lg",
   };
 
   // Classes adicionais para quando o botão estiver em estado de loading

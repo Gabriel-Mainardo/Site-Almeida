@@ -24,11 +24,11 @@ const Hero = () => {
   return (
     <section 
       id="home" 
-      className="relative min-h-screen flex items-center pt-16 pb-8 md:pb-0 md:pt-20 overflow-hidden"
+      className="relative min-h-screen w-full flex items-center pt-14 pb-6 md:pt-16 md:pb-8 overflow-hidden"
     >
       {/* Vídeo de background */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-plum-dark/40 z-10"></div>
+      <div className="absolute inset-0 z-0 w-full h-full">
+        <div className="absolute inset-0 bg-plum-dark/40 z-10 w-full h-full"></div>
         {videoError ? (
           <div className="absolute inset-0 w-full h-full">
             <img 
@@ -52,24 +52,24 @@ const Hero = () => {
             Seu navegador não suporta vídeos HTML5.
           </video>
         )}
-        <div className="absolute inset-0 bg-gradient-to-b from-plum-dark/20 to-plum-dark/60 z-20"></div>
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5 z-20"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-plum-dark/20 to-plum-dark/60 z-20 w-full h-full"></div>
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5 z-20 w-full h-full"></div>
       </div>
       
-      <div className="container mx-auto relative z-30">
-        <div className="max-w-4xl mx-auto text-center px-4">
+      <div className="container mx-auto relative z-30 w-full px-4">
+        <div className="max-w-4xl mx-auto text-center px-3 sm:px-4">
           <div className={`transition-opacity duration-1000 ${(videoLoaded || videoError) ? 'opacity-100' : 'opacity-0'}`}>
             <h1 
-              className={`poetic-headline mb-4 sm:mb-6 transition-all duration-1000 ease-out ${
+              className={`poetic-headline mb-3 sm:mb-4 md:mb-6 transition-all duration-1000 ease-out ${
                 isVisible ? 'opacity-100' : 'opacity-0 translate-y-10'
               }`}
             >
-              <span className="block mb-1 sm:mb-3">Almeida conduz</span>
+              <span className="block mb-1 sm:mb-2">Almeida conduz</span>
               <span className="gold-gradient-text">sua história</span>
             </h1>
             
             <p 
-              className={`text-base sm:text-xl md:text-2xl text-cream/90 mb-6 sm:mb-12 max-w-2xl mx-auto transition-all duration-1000 ease-out delay-300 ${
+              className={`text-sm sm:text-base md:text-xl lg:text-2xl text-cream/90 mb-5 sm:mb-8 md:mb-12 max-w-2xl mx-auto transition-all duration-1000 ease-out delay-300 ${
                 isVisible ? 'opacity-100' : 'opacity-0 translate-y-10'
               }`}
             >
@@ -84,7 +84,7 @@ const Hero = () => {
           >
             <ButtonCustom
               variant="secondary"
-              size={isMobile ? "md" : "lg"}
+              size="lg"
               icon={<ArrowRight size={18} />}
               onClick={() => scrollToSection('contact')}
               className="w-full sm:w-auto"
@@ -94,7 +94,7 @@ const Hero = () => {
             
             <ButtonCustom
               variant="outline"
-              size={isMobile ? "md" : "lg"}
+              size="lg"
               className="mt-2 sm:mt-0 w-full sm:w-auto"
               onClick={() => scrollToSection('services')}
             >
@@ -113,7 +113,7 @@ const Hero = () => {
       <div className="absolute bottom-1/4 right-10 md:right-20 w-10 h-10 sm:w-16 sm:h-16 rounded-full bg-gold/5 backdrop-blur-sm hidden sm:block z-30"></div>
       
       {/* Partículas de ouro - adaptadas para responsividade */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-30">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-30 w-full h-full">
         <div className="absolute top-1/3 left-1/4 w-1 h-1 sm:w-2 sm:h-2 rounded-full bg-gold animate-pulse"></div>
         <div className="absolute top-2/3 left-1/2 w-0.5 h-0.5 sm:w-1 sm:h-1 rounded-full bg-gold animate-pulse"></div>
         <div className="absolute top-1/2 right-1/4 w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-gold animate-pulse"></div>

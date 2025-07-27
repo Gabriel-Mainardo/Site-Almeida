@@ -91,7 +91,7 @@ const AboutSection = () => {
                 icon={feature.icon}
                 title={feature.title}
                 description={feature.description}
-                className="h-full"
+                className="h-full min-h-[160px] sm:min-h-[160px] flex-1"
               />
             ))}
           </div>

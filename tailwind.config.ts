@@ -1,22 +1,12 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 export default {
-	darkMode: ["class"],
 	content: [
-		"./pages/**/*.{ts,tsx}",
-		"./components/**/*.{ts,tsx}",
-		"./app/**/*.{ts,tsx}",
-		"./src/**/*.{ts,tsx}",
+		'./src/**/*.{js,jsx,ts,tsx}',
+		'./public/index.html',
 	],
-	prefix: "",
+	darkMode: 'class',
 	theme: {
-		container: {
-			center: true,
-			padding: '2rem',
-			screens: {
-				'2xl': '1400px'
-			}
-		},
 		extend: {
 			colors: {
 				border: 'hsl(var(--border))',
@@ -26,66 +16,75 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
+					foreground: 'hsl(var(--secondary-foreground))',
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
-					foreground: 'hsl(var(--destructive-foreground))'
+					foreground: 'hsl(var(--destructive-foreground))',
 				},
 				muted: {
 					DEFAULT: 'hsl(var(--muted))',
-					foreground: 'hsl(var(--muted-foreground))'
+					foreground: 'hsl(var(--muted-foreground))',
 				},
 				accent: {
 					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))'
+					foreground: 'hsl(var(--accent-foreground))',
 				},
 				popover: {
 					DEFAULT: 'hsl(var(--popover))',
-					foreground: 'hsl(var(--popover-foreground))'
+					foreground: 'hsl(var(--popover-foreground))',
 				},
 				card: {
 					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--card-foreground))'
+					foreground: 'hsl(var(--card-foreground))',
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+					primary: {
+						DEFAULT: 'hsl(var(--sidebar-primary))',
+						foreground: 'hsl(var(--sidebar-primary-foreground))'
+					},
+					accent: {
+						DEFAULT: 'hsl(var(--sidebar-accent))',
+						foreground: 'hsl(var(--sidebar-accent-foreground))'
+					},
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				plum: {
 					DEFAULT: '#2D2136',
-					light: '#3D2C48',
+					light: '#3D2D49',
 					dark: '#1E1624',
+				},
+				cream: {
+					DEFAULT: '#F3F4E5',
+					light: '#FFFFF0',
+					dark: '#E5E6D1',
+				},
+				sage: {
+					DEFAULT: '#A1C1BE',
+					light: '#B5D0CD',
+					dark: '#8AADA9',
+				},
+				slate: {
+					DEFAULT: '#424E5E',
+					light: '#566271',
+					dark: '#333D4B',
 				},
 				gold: {
 					DEFAULT: '#D4AF37',
 					light: '#F0CD5D',
 					dark: '#B38B28',
 				},
-				cream: {
-					DEFAULT: '#F3F4E5',
-					light: '#FAFBF2',
-					dark: '#E8E9D9',
-				},
-				sage: {
-					DEFAULT: '#A1C1BE',
-					light: '#B5D0CD',
-					dark: '#8AABA8',
-				},
-				slate: {
-					DEFAULT: '#424E5E',
-					light: '#566579',
-					dark: '#323A46',
+				gray: {
+					light: '#2A2E35',
+					medium: '#1E2127',
+					dark: '#F5F5F5',
 				},
 			},
 			borderRadius: {
@@ -186,7 +185,10 @@ export default {
 			},
 			backgroundImage: {
 				'gradient-gold': 'linear-gradient(45deg, #D4AF37 30%, #F0CD5D 70%, #B38B28 90%)',
-				'gradient-plum': 'linear-gradient(to bottom, rgba(45, 33, 54, 0.8), rgba(30, 22, 36, 0.95))',
+				'gradient-dark': 'linear-gradient(to bottom, rgba(10, 16, 24, 0.8), rgba(18, 26, 44, 0.95))',
+			},
+			touchAction: {
+				'manipulation': 'manipulation',
 			}
 		}
 	},

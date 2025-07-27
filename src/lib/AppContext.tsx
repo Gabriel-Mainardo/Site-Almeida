@@ -7,6 +7,7 @@ interface AppContextType {
   isMobile: boolean;
   isTablet: boolean;
   isDesktop: boolean;
+  windowWidth: number;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -21,6 +22,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,9 +51,17 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     
     // Gerenciar responsividade
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
-      setIsDesktop(window.innerWidth >= 1024);
+      const width = window.innerWidth;
+      setWindowWidth(width);
+      setIsMobile(width < 768);
+      setIsTablet(width >= 768 && width < 1024);
+      setIsDesktop(width >= 1024);
+      
+      // Forçar atualização do viewport em dispositivos móveis
+      if (width < 768) {
+        // Pequeno hack para forçar o recálculo do layout em dispositivos móveis
+        document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+      }
     };
     
     // Inicializar estados
@@ -60,11 +70,17 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     // Adicionar event listeners
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
+    
+    // Executar handleResize após um pequeno delay para garantir que o layout esteja estável
+    const timeoutId = setTimeout(handleResize, 100);
     
     // Limpar event listeners
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleResize);
+      clearTimeout(timeoutId);
     };
   }, []);
   
@@ -76,7 +92,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         isScrolled, 
         isMobile, 
         isTablet, 
-        isDesktop 
+        isDesktop,
+        windowWidth
       }}
     >
       {children}

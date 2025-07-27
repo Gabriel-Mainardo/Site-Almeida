@@ -75,16 +75,16 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-12 md:py-24 bg-plum slide-in">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-8 md:mb-16">
+    <section id="contact" className="py-10 md:py-16 bg-plum slide-in">
+      <div className="container mx-auto px-3 sm:px-4">
+        <div className="text-center mb-6 md:mb-12">
           <h2 className="section-title">Contato</h2>
           <p className="section-subtitle text-cream/90">
             Entre em contato para ter um Mestre de Cerimônias profissional em seu próximo evento
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 md:gap-10">
+        <div className="grid md:grid-cols-2 gap-5 md:gap-10">
           <div>
             <h3 className="text-xl font-bold text-gold mb-4 md:mb-6 text-center md:text-left">Solicite um Orçamento Personalizado</h3>
             
@@ -99,7 +99,7 @@ const ContactSection = () => {
                 </p>
                 <button 
                   onClick={() => setIsSubmitted(false)}
-                  className="btn-secondary text-sm md:text-base py-3 px-6"
+                  className="btn-secondary text-base py-3 px-6"
                 >
                   Enviar outro orçamento
                 </button>
@@ -107,7 +107,7 @@ const ContactSection = () => {
             ) : (
               <form onSubmit={handleSubmit} className="glass-card p-5 md:p-6 rounded-lg luxury-shadow border border-gold/20">
                 <div className="mb-4">
-                  <label htmlFor="name" className="block text-gold font-medium text-sm md:text-base mb-2">Nome completo</label>
+                  <label htmlFor="name" className="block text-gold font-medium text-base mb-2">Nome completo</label>
                   <input
                     type="text"
                     id="name"
@@ -122,7 +122,7 @@ const ContactSection = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label htmlFor="email" className="block text-gold font-medium text-sm md:text-base mb-2">Email</label>
+                    <label htmlFor="email" className="block text-gold font-medium text-base mb-2">Email</label>
                     <input
                       type="email"
                       id="email"
@@ -135,7 +135,7 @@ const ContactSection = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="phone" className="block text-gold font-medium text-sm md:text-base mb-2">Telefone</label>
+                    <label htmlFor="phone" className="block text-gold font-medium text-base mb-2">Telefone</label>
                     <input
                       type="tel"
                       id="phone"
@@ -150,7 +150,7 @@ const ContactSection = () => {
                 </div>
                 
                 <div className="mb-4">
-                  <label htmlFor="eventType" className="block text-gold font-medium text-sm md:text-base mb-2">Tipo de Evento</label>
+                  <label htmlFor="eventType" className="block text-gold font-medium text-base mb-2">Tipo de Evento</label>
                   <select
                     id="eventType"
                     name="eventType"
@@ -169,7 +169,7 @@ const ContactSection = () => {
                 </div>
                 
                 <div className="mb-5">
-                  <label htmlFor="message" className="block text-gold font-medium text-sm md:text-base mb-2">Mensagem</label>
+                  <label htmlFor="message" className="block text-gold font-medium text-base mb-2">Mensagem</label>
                   <textarea
                     id="message"
                     name="message"

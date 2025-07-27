@@ -32,10 +32,6 @@ const Index = () => {
       <ContactSection />
       <Footer />
       <Toaster />
-      
-      {/* Elementos decorativos flutuantes com classe parallax para efeito */}
-      <div className="fixed top-1/4 left-10 w-32 h-32 border border-gold/10 rounded-full pointer-events-none parallax" data-speed="-0.2"></div>
-      <div className="fixed bottom-1/4 right-10 w-40 h-40 border border-gold/10 rounded-full pointer-events-none parallax" data-speed="0.3"></div>
     </div>
   );
 };
